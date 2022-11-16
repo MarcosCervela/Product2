@@ -5,10 +5,11 @@ const mongoose = require('mongoose'); // Llamada a mongoose
 const Schema = mongoose.Schema ;   //Creación del Schema
 
 const PanelesSchema = new Schema ({
-    id : {type : Number},
+    id : Number,
     titulo : String,
     descripcion : String,
-    tareas : String
+    //Todo mirar como relacionarlo 
+    tareas : String,
     
 })
 

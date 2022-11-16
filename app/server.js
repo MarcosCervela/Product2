@@ -1,13 +1,24 @@
-const mongoose = require('mongoose')
 
-const connectionString = 'mongodb+srv://JavaScript:uoc1234@producto2.prmbfgr.mongodb.net/test'
+require('./config/database.js')
 
-//Conexión con la base de datos
-mongoose.connect(connectionString)
 
-    .then(() => {
-        console.log('Database conected')
-    }).catch(err => {
-        console.error(err)
 
-    })
+const express = require('express')
+const app = express()
+const port = 3001
+
+
+
+
+
+
+
+
+
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+  })
+
+
+
+
