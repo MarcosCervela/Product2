@@ -13,8 +13,6 @@ const TareaSchema =  new Schema ({
     panel : {type: mongoose.Types.ObjectId, ref:"Panel"},
 });
 
-
-
 const Tarea = mongoose.model('Tarea', TareaSchema);
 
 module.exports = Tarea;

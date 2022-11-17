@@ -1,22 +1,3 @@
-
-// require('./config/database.js')
-
-
-
-// const express = require('express')
-// const app = express()
-// const port = 3001
-
-
-// app.listen(port, () => {
-//     console.log(`Example app listening on port ${port}`)
-//   })
-
-
-
-
-
-
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer'
@@ -25,99 +6,28 @@ import http from 'http';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
-// iniciar servidor
-import "./config/database.js";
+import "./config/database.mjs";
+import { typeDefs } from './config/config.mjs';
 
-import Tarea from './models/Tarea.js';
-import Panel from './models/Panel.js';
-
-const typeDefs = `#graphql
-  type Tarea {
-    _id: String
-    titulo: String 
-    descripcion: String
-    fecha_inicio: String
-    fecha_fin: String
-    estado: Boolean
-  }
-  type Panel {
-    _id: String
-    titulo: String
-    descripcion: String
-    tareas: [Tarea]
-  }
-
-  type Query {
-    hello: String
-
-    panel(_id: ID): Panel
-    tarea(_id: ID): Tarea
-
-    allPaneles: [Panel]
-    allTareas: [Tarea]
-  }
-
-  type Mutation {
-    addTarea(
-      idPanel: String,
-      titulo: String,
-      descripcion: String,
-      fecha_inicio: String,
-      fecha_fin: String,
-      estado: Boolean
-    ): Tarea
-    addPanel(
-      titulo: String,
-      descripcion: String,
-    ): Panel
-  }
-`
-
-
-const books = [
-  {
-    id: 1,
-    descripcion: 'Kate Chopin',
-  },
-  {
-    id: 2,
-    descripcion: 'Paul Auster',
-  },
-];
-
+import { panelResolver, addPanelResolver, allPanelesResolver } from './controllers/PanelController.mjs';
+import { tareaResolver, addTareaResolver, allTareasResolver } from './controllers/TareasController.mjs';
 
 // se crean los resolvers
 const resolvers ={
     Query: { 
       hello: () => 'world',
-      panel: async (root, args) => {
-        console.log('./Panel.findById(args._id).get()', await Panel.findById(args._id).exec())
-        return Panel.findById(args._id).exec()
-      },
-      tarea: (root, args) => {
-        return Tarea.findById(args._id).exec()
-      },
+      panel: panelResolver,
+      tarea: tareaResolver,
 
-      allPaneles: async (root, args) => {
-        return Panel.find().exec()
-      },
-      allTareas: (root, args) => {
-        return Tarea.find().exec()
-      },
+      allPaneles: allPanelesResolver,
+      allTareas: allTareasResolver,
     },
 
     Mutation:{
-      addPanel: (root, args) => {
-        const panel = new Panel({...args})
-        return panel.save()
-      },
-      addTarea: (root, args) => {
-        const tarea = new Tarea({...args})
-        return tarea.save()
-      }
+      addPanel: addPanelResolver,
+      addTarea: addTareaResolver,
     }
 }
-
 
 const app = express();
 const httpServer = http.createServer(app);
