@@ -8,6 +8,7 @@
     "mongoose": "^6.7.1"
   },
   "scripts": {
-    "start": "node app/server.mjs"
+    "start": "node app/server.mjs",
+    "watch": "nodemon app/server.mjs"
   }
 }

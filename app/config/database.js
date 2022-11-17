@@ -9,5 +9,4 @@ const connection = 'mongodb+srv://JavaScript:uoc1234@producto2.prmbfgr.mongodb.n
 
 //Conexión con la base de datos
 mongoose.connect(connection)
-
-    
+    .then(db => console.log('DB is connected'))
