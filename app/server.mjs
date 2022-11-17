@@ -53,7 +53,7 @@ const typeDefs = `#graphql
     panel(_id: ID): Panel
     tarea(_id: ID): Tarea
 
-    allPanels: [Panel]
+    allPaneles: [Panel]
     allTareas: [Tarea]
   }
 
@@ -98,7 +98,7 @@ const resolvers ={
         return Tarea.findById(args._id).exec()
       },
 
-      allPanels: async (root, args) => {
+      allPaneles: async (root, args) => {
         return Panel.find().exec()
       },
       allTareas: (root, args) => {
