@@ -1,8 +1,14 @@
 {
   "dependencies": {
-    "apollo-server-express": "^3.11.1",
-    "express-graphql": "^0.12.0",
+    "@apollo/server": "^4.1.1",
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
     "graphql": "^16.6.0",
     "mongoose": "^6.7.1"
+  },
+  "scripts": {
+    "start": "node app/server.mjs",
+    "watch": "nodemon app/server.mjs"
   }
 }
