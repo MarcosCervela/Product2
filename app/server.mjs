@@ -49,8 +49,12 @@ const typeDefs = `#graphql
 
   type Query {
     hello: String
+
     panel(_id: ID): Panel
     tarea(_id: ID): Tarea
+
+    allPanels: [Panel]
+    allTareas: [Tarea]
   }
 
   type Mutation {
@@ -92,6 +96,13 @@ const resolvers ={
       },
       tarea: (root, args) => {
         return Tarea.findById(args._id).exec()
+      },
+
+      allPanels: async (root, args) => {
+        return Panel.find().exec()
+      },
+      allTareas: (root, args) => {
+        return Tarea.find().exec()
       },
     },
 
